@@ -28,9 +28,11 @@ import {Tooltip} from '../Tooltip';
 import {UnstyledButton} from '../UnstyledButton';
 import {BulkActions} from '../BulkActions';
 import type {BulkActionsProps} from '../BulkActions';
+import {HoverCard} from '../HoverCard';
 import {classNames} from '../../utilities/css';
 import {
   useIndexValue,
+  useIndexCellPreview,
   useIndexSelectionChange,
   SELECT_ALL_ITEMS,
   SelectionType,
@@ -109,6 +111,12 @@ export interface IndexTableBaseProps {
   paginatedSelectAllActionText?: string;
   lastColumnSticky?: boolean;
   selectable?: boolean;
+  /** Add zebra striping to table rows */
+  hasZebraStriping?: boolean;
+  /** Properties to enable pagination at the bottom of the table. */
+  pagination?: IndexTablePaginationProps;
+  /** Whether there are cells that render previews on hover */
+  hasCellPreviews?: boolean;
   /** List of booleans, which maps to whether sorting is enabled or not for each column. Defaults to false for all columns.  */
   sortable?: boolean[];
   /**
@@ -122,15 +130,11 @@ export interface IndexTableBaseProps {
    * The index of the heading that the table rows are sorted by.
    */
   sortColumnIndex?: number;
-  /** Callback fired on click or keypress of a sortable column heading. */
-  onSort?(headingIndex: number, direction: IndexTableSortDirection): void;
   /** Optional dictionary of sort toggle labels for each sortable column, with ascending and descending label,
    * with the key as the index of the column */
   sortToggleLabels?: IndexTableSortToggleLabels;
-  /** Add zebra striping to table rows */
-  hasZebraStriping?: boolean;
-  /** Properties to enable pagination at the bottom of the table. */
-  pagination?: IndexTablePaginationProps;
+  /** Callback fired on click or keypress of a sortable column heading. */
+  onSort?(headingIndex: number, direction: IndexTableSortDirection): void;
 }
 
 export interface TableHeadingRect {
@@ -150,6 +154,7 @@ function IndexTableBase({
   sort,
   paginatedSelectAllActionText,
   lastColumnSticky = false,
+  hasCellPreviews,
   sortable,
   sortDirection,
   defaultSortDirection = 'descending',
@@ -161,6 +166,19 @@ function IndexTableBase({
   ...restProps
 }: IndexTableBaseProps) {
   const theme = useTheme();
+
+  const {activeCellPreview, currentCellPreviewActivator} =
+    useIndexCellPreview();
+
+  const cellPreviewMarkup = hasCellPreviews ? (
+    <HoverCard
+      snapToParent
+      activator={currentCellPreviewActivator}
+      content={activeCellPreview}
+      activatorWrapper="div"
+      preferredPosition="right"
+    />
+  ) : null;
 
   const {
     loading,
@@ -901,6 +919,7 @@ function IndexTableBase({
 
   return (
     <>
+      {cellPreviewMarkup}
       <div className={styles.IndexTable}>
         <div className={tableWrapperClassNames} ref={tableMeasurerRef}>
           {!shouldShowBulkActions && !condensed && loadingMarkup}
@@ -1308,6 +1327,7 @@ export function IndexTable({
   resourceName: passedResourceName,
   loading,
   hasMoreItems,
+  hasCellPreviews,
   condensed,
   onSelectionChange,
   ...indexTableBaseProps
@@ -1321,6 +1341,7 @@ export function IndexTable({
         resourceName={passedResourceName}
         loading={loading}
         hasMoreItems={hasMoreItems}
+        hasCellPreviews={hasCellPreviews}
         condensed={condensed}
         onSelectionChange={onSelectionChange}
       >
