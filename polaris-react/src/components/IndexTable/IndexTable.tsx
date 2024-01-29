@@ -1345,7 +1345,12 @@ export function IndexTable({
         condensed={condensed}
         onSelectionChange={onSelectionChange}
       >
-        <IndexTableBase {...indexTableBaseProps}>{children}</IndexTableBase>
+        <IndexTableBase
+          hasCellPreviews={hasCellPreviews}
+          {...indexTableBaseProps}
+        >
+          {children}
+        </IndexTableBase>
       </IndexProvider>
     </>
   );
