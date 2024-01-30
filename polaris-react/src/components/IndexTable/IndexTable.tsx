@@ -115,8 +115,6 @@ export interface IndexTableBaseProps {
   hasZebraStriping?: boolean;
   /** Properties to enable pagination at the bottom of the table. */
   pagination?: IndexTablePaginationProps;
-  /** Whether there are cells that render previews on hover */
-  hasCellPreviews?: boolean;
   /** List of booleans, which maps to whether sorting is enabled or not for each column. Defaults to false for all columns.  */
   sortable?: boolean[];
   /**
@@ -154,7 +152,6 @@ function IndexTableBase({
   sort,
   paginatedSelectAllActionText,
   lastColumnSticky = false,
-  hasCellPreviews,
   sortable,
   sortDirection,
   defaultSortDirection = 'descending',
@@ -170,7 +167,7 @@ function IndexTableBase({
   const {activeCellPreview, currentCellPreviewActivator} =
     useIndexCellPreview();
 
-  const cellPreviewMarkup = hasCellPreviews ? (
+  const cellPreviewMarkup = (
     <HoverCard
       snapToParent
       activator={currentCellPreviewActivator}
@@ -178,7 +175,7 @@ function IndexTableBase({
       activatorWrapper="div"
       preferredPosition="right"
     />
-  ) : null;
+  );
 
   const {
     loading,
@@ -1327,7 +1324,6 @@ export function IndexTable({
   resourceName: passedResourceName,
   loading,
   hasMoreItems,
-  hasCellPreviews,
   condensed,
   onSelectionChange,
   ...indexTableBaseProps
@@ -1341,16 +1337,10 @@ export function IndexTable({
         resourceName={passedResourceName}
         loading={loading}
         hasMoreItems={hasMoreItems}
-        hasCellPreviews={hasCellPreviews}
         condensed={condensed}
         onSelectionChange={onSelectionChange}
       >
-        <IndexTableBase
-          hasCellPreviews={hasCellPreviews}
-          {...indexTableBaseProps}
-        >
-          {children}
-        </IndexTableBase>
+        <IndexTableBase {...indexTableBaseProps}>{children}</IndexTableBase>
       </IndexProvider>
     </>
   );
