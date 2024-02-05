@@ -35,19 +35,13 @@
   box-shadow: var(--pc-button-box-shadow);
   color: var(--pc-button-color);
 
-  font-size: var(--p-font-size-350);
-  font-weight: var(--p-font-weight-semibold);
-  line-height: var(--p-font-line-height-500);
+  font-size: var(--p-text-body-sm-font-size);
+  font-weight: var(--p-font-weight-medium);
+  line-height: var(--p-text-body-sm-font-line-height);
 
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-
-  @media (--p-breakpoints-md-up) {
-    font-size: var(--p-font-size-300);
-    font-weight: var(--p-font-weight-medium);
-    line-height: var(--p-font-line-height-400);
-  }
 }
 
 // stylelint-disable selector-max-specificity -- Duplicate selectors to bump specificity to be greater than Icon's svg fill (0, 1, 1)
@@ -180,12 +174,12 @@
   --pc-button-bg_disabled: transparent;
   margin: calc(-1 * var(--pc-button-padding-block))
     calc(-1 * var(--pc-button-padding-inline));
-  font-size: var(--p-font-size-350);
+  font-size: var(--p-text-body-sm-font-size);
   font-weight: var(--p-font-weight-regular);
-  line-height: var(--p-font-line-height-500);
+  line-height: var(--p-text-body-md-font-line-height);
 
   @media (--p-breakpoints-md-up) {
-    font-size: var(--p-font-size-325);
+    font-size: var(--p-text-body-md-font-size);
   }
 }
 
@@ -354,7 +348,7 @@
 
 // INTERACTION
 .pressable:active:not(.variantTertiary, .variantPlain, .variantMonochromePlain)
-  > * {
+> * {
   @media (--p-breakpoints-md-up) {
     transform: translate3d(0, 1px, 0);
   }
@@ -384,10 +378,10 @@
 }
 
 // BUTTON GROUP
-/* stylelint-disable -- selector-max-combinators */
+
 [data-buttongroup-variant='segmented']
-  > *:not(:first-child)
-  .Button:is(.variantPrimary) {
+> *:not(:first-child)
+.Button:is(.variantPrimary) {
   margin-left: calc(-1 * var(--p-space-025));
 }
 

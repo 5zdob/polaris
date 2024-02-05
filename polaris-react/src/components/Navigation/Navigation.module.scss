@@ -438,15 +438,13 @@ $nav-max-width: 360px;
 
 .Text {
   flex: 1 1 auto;
-  font-size: var(--p-font-size-350);
+  font-size: var(--p-text-body-md-font-size);
   font-weight: var(--p-font-weight-medium);
-  line-height: var(--p-font-line-height-500);
+  line-height: var(--p-text-body-md-font-line-height);
   margin-top: var(--p-space-200);
   margin-bottom: var(--p-space-200);
 
   @media (--p-breakpoints-md-up) {
-    font-size: var(--p-font-size-325);
-    line-height: var(--p-font-line-height-500);
     margin-top: var(--p-space-100);
     margin-bottom: var(--p-space-100);
   }

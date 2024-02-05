@@ -12,12 +12,6 @@
     $zIndex: 101
   );
 
-  // Override custom heading font sizes
-  h2,
-  h3 {
-    font-size: var(--p-font-size-325);
-  }
-
   + .LegacyCard {
     margin-top: var(--p-space-400);
 
