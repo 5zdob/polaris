@@ -71,24 +71,10 @@ $nav-animation-variables: (
     border: 0;
   }
 
-  svg,
   img {
     display: block;
     height: var(--p-space-500);
     width: var(--p-space-500);
-  }
-
-  .Icon-resized {
-    svg,
-    img {
-      margin: var(--p-space-050);
-      height: var(--p-space-400);
-      width: var(--p-space-400);
-    }
-
-    img {
-      border-radius: var(--p-border-radius-100);
-    }
   }
 }
 
